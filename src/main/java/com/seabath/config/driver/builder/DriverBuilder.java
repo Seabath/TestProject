@@ -9,6 +9,7 @@ public interface DriverBuilder<T extends RemoteWebDriver> {
 
     void killDriver(T webDriver);
 
+    @SuppressWarnings( {"unused", "unchecked", "rawtypes"})
     enum DriverBuilders {
         GECKO {
             @Override

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class PropertyReader {
     public static final String PARAM_FILE_PATH = "paramFilePath";
@@ -14,7 +15,7 @@ public class PropertyReader {
         this.propertyFilePath = propertyFilePath;
     }
 
-    public TestParam ingestVariables() {
+    public TestParam<RemoteWebDriver> ingestVariables() {
         Properties properties = new Properties();
         final File file = new File(propertyFilePath);
         try {
@@ -23,8 +24,6 @@ public class PropertyReader {
             throw new IllegalStateException("Could not read file: " + file, e);
         }
 
-        final TestParam testParam = new TestParam();
-        testParam.ingest(properties);
-        return testParam;
+        return new TestParam<>(properties);
     }
 }

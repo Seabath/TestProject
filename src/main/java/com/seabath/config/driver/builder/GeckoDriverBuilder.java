@@ -8,9 +8,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 public class GeckoDriverBuilder implements DriverBuilder<FirefoxDriver> {
 
 
-    private final TestParam testParam;
+    private final TestParam<FirefoxDriver> testParam;
 
-    public GeckoDriverBuilder(TestParam testParam) {
+    public GeckoDriverBuilder(TestParam<FirefoxDriver> testParam) {
         this.testParam = testParam;
     }
 

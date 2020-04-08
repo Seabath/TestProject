@@ -12,11 +12,12 @@ public class GoogleTest extends AbstractT<GoogleTestDirector> {
     }
 
     @Test
-    public void shouldGoToMainPage() {
+    public void shouldClickMainLogo() {
 
         getDirector()
             .start()
-            .clickLogo();
+            .clickLogo()
+            .execute();
     }
 
 }

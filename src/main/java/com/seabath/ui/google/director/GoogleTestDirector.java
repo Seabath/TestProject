@@ -8,13 +8,13 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class GoogleTestDirector extends TestDirector<GoogleMainPage, RemoteWebDriver> {
 
-    public GoogleTestDirector(TestParam testParam) {
+    public GoogleTestDirector(TestParam<RemoteWebDriver> testParam) {
         super(testParam);
     }
 
     @Override
-    protected GoogleMainPage getFirstPage(TestData<?> testData) {
+    protected GoogleMainPage getFirstPage(TestData<RemoteWebDriver> testData) {
         testData.getWebDriver().get(getTestParam().getAppUrl());
-        return new GoogleMainPage(testData);
+        return new GoogleMainPage(testData, getTestParam());
     }
 }

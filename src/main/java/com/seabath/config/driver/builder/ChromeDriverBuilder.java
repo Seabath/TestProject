@@ -8,9 +8,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class ChromeDriverBuilder implements DriverBuilder<ChromeDriver> {
 
 
-    private final TestParam testParam;
+    private final TestParam<ChromeDriver> testParam;
 
-    public ChromeDriverBuilder(TestParam testParam) {
+    public ChromeDriverBuilder(TestParam<ChromeDriver> testParam) {
         this.testParam = testParam;
     }
 
@@ -22,7 +22,8 @@ public class ChromeDriverBuilder implements DriverBuilder<ChromeDriver> {
 
     @Override
     public void killDriver(ChromeDriver webDriver) {
-        if (webDriver != null && StringUtils.isNotBlank(webDriver.getSessionId().toString())) {
+        if (webDriver != null && webDriver.getSessionId() != null &&
+            StringUtils.isNotBlank(webDriver.getSessionId().toString())) {
             webDriver.quit();
         }
     }

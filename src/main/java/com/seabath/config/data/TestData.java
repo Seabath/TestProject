@@ -6,7 +6,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class TestData<T extends RemoteWebDriver> {
 
     @Getter
-    private T webDriver;
+    private final T webDriver;
 
     public TestData(T webDriver) {
         this.webDriver = webDriver;

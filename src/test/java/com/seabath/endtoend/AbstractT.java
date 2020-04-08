@@ -7,11 +7,12 @@ import com.seabath.config.properties.TestParam;
 import lombok.Getter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public abstract class AbstractT<T extends TestDirector<?, ?>> {
 
     @Getter
-    private final TestParam testParam;
+    private final TestParam<RemoteWebDriver> testParam;
     @Getter
     private T director;
 

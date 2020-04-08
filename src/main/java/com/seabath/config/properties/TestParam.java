@@ -17,9 +17,8 @@ public class TestParam<U extends RemoteWebDriver> {
     private String appUrl;
     private String pathDriver;
 
-    public void ingest(Properties properties) {
+    public TestParam(Properties properties) {
         final String driverBuilderProperty = properties.getProperty(DRIVER_BUILDER_PROPERTY_KEY);
-        final DriverBuilder.DriverBuilders driverBuilders = DriverBuilder.DriverBuilders.valueOf(driverBuilderProperty);
         try {
             final DriverBuilder.DriverBuilders builder =
                 DriverBuilder.DriverBuilders.valueOf(driverBuilderProperty);
@@ -29,7 +28,6 @@ public class TestParam<U extends RemoteWebDriver> {
                 driverBuilderProperty);
             throw new IllegalStateException(message, e);
         }
-
         this.appUrl = properties.getProperty(APP_URL_PROPERTY_KEY);
         this.pathDriver = properties.getProperty(PATH_DRIVER_PROPERTY_KEY);
     }
