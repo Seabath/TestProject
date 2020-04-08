@@ -8,6 +8,10 @@
     <artifactId>TestProject</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <paramFilePath>src/main/resources/param.properties</paramFilePath>
+    </properties>
+
 
     <dependencies>
         <dependency>
@@ -15,6 +19,17 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.5.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
