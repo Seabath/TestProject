@@ -4,8 +4,9 @@ import com.seabath.config.data.TestData;
 import com.seabath.config.director.TestDirector;
 import com.seabath.config.properties.TestParam;
 import com.seabath.ui.google.page.GoogleMainPage;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
-public class GoogleTestDirector extends TestDirector<GoogleMainPage> {
+public class GoogleTestDirector extends TestDirector<GoogleMainPage, RemoteWebDriver> {
 
     public GoogleTestDirector(TestParam testParam) {
         super(testParam);

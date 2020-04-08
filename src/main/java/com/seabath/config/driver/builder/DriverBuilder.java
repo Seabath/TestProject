@@ -7,6 +7,8 @@ public interface DriverBuilder<T extends RemoteWebDriver> {
 
     T buildDriver();
 
+    void killDriver(T webDriver);
+
     enum DriverBuilders {
         GECKO {
             @Override
@@ -21,6 +23,6 @@ public interface DriverBuilder<T extends RemoteWebDriver> {
             }
         };
 
-        public abstract DriverBuilder<?> getBuilder(TestParam testParam);
+        public abstract <U extends RemoteWebDriver> DriverBuilder<U> getBuilder(TestParam<U> testParam);
     }
 }
