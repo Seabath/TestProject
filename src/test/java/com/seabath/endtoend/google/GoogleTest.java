@@ -15,7 +15,8 @@ public class GoogleTest extends AbstractT<GoogleTestDirector> {
     public void shouldGoToMainPage() {
 
         getDirector()
-            .start();
+            .start()
+            .clickLogo();
     }
 
 }
