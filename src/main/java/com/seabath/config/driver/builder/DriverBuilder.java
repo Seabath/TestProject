@@ -22,6 +22,12 @@ public interface DriverBuilder<T extends RemoteWebDriver> {
             public ChromeDriverBuilder getBuilder(TestParam testParam) {
                 return new ChromeDriverBuilder(testParam);
             }
+        },
+        REMOTE {
+            @Override
+            public LabmdaTestRemoteDriverBuilder getBuilder(TestParam testParam) {
+                return new LabmdaTestRemoteDriverBuilder(testParam);
+            }
         };
 
         public abstract <U extends RemoteWebDriver> DriverBuilder<U> getBuilder(TestParam<U> testParam);

@@ -13,7 +13,6 @@ public class GoogleTest extends AbstractT<GoogleTestDirector> {
 
     @Test
     public void shouldClickMainLogo() {
-
         getDirector()
             .start()
             .clickLogo()

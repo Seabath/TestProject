@@ -9,13 +9,15 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class TestParam<U extends RemoteWebDriver> {
 
 
-    public static final String DRIVER_BUILDER_PROPERTY_KEY = "driverBuilder";
-    public static final String APP_URL_PROPERTY_KEY = "appUrl";
-    public static final String PATH_DRIVER_PROPERTY_KEY = "pathDriver";
+    private static final String DRIVER_BUILDER_PROPERTY_KEY = "driverBuilder";
+    private static final String APP_URL_PROPERTY_KEY = "appUrl";
+    private static final String PATH_DRIVER_PROPERTY_KEY = "pathDriver";
+    private static final String GRID_URL_PROPERTY_KEY = "gridUrl";
 
-    private DriverBuilder<U> driverBuilder;
-    private String appUrl;
-    private String pathDriver;
+    private final DriverBuilder<U> driverBuilder;
+    private final String appUrl;
+    private final String pathDriver;
+    private final String gridUrl;
 
     public TestParam(Properties properties) {
         final String driverBuilderProperty = properties.getProperty(DRIVER_BUILDER_PROPERTY_KEY);
@@ -30,5 +32,6 @@ public class TestParam<U extends RemoteWebDriver> {
         }
         this.appUrl = properties.getProperty(APP_URL_PROPERTY_KEY);
         this.pathDriver = properties.getProperty(PATH_DRIVER_PROPERTY_KEY);
+        this.gridUrl = properties.getProperty(GRID_URL_PROPERTY_KEY);
     }
 }
