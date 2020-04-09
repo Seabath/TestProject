@@ -9,12 +9,13 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class GoogleMainPage extends BasePage<RemoteWebDriver> {
 
-    private final BaseElement<?> middleLogo;
+    private final BaseElement<?, ?> middleLogo;
 
     public GoogleMainPage(TestData<RemoteWebDriver> testData, TestParam<RemoteWebDriver> testParam) {
         super(testData, testParam);
 
         middleLogo = new BaseElement<>(
+            testData.getWebDriver(),
             testData.getWebDriver(),
             By.cssSelector("img")
         );
