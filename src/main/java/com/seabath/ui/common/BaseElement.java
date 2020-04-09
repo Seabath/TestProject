@@ -1,8 +1,8 @@
 package com.seabath.ui.common;
 
-import static com.sun.tools.internal.ws.wsdl.parser.Util.fail;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import static org.assertj.core.api.Fail.fail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -34,6 +34,7 @@ public class BaseElement<T extends RemoteWebDriver> {
             webElement = new WebDriverWait(driver, timeout)
                 .until(webDriver -> webDriver.findElement(by));
         } catch (TimeoutException e) {
+            //noinspection ResultOfMethodCallIgnored
             fail(String.format("Element with selector: <%s> not found.", by.toString()));
         }
 
