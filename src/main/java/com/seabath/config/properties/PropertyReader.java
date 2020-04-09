@@ -1,5 +1,6 @@
 package com.seabath.config.properties;
 
+import io.qameta.allure.Step;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,6 +16,7 @@ public class PropertyReader {
         this.propertyFilePath = propertyFilePath;
     }
 
+    @Step
     public TestParam<RemoteWebDriver> ingestVariables() {
         Properties properties = new Properties();
         final File file = new File(propertyFilePath);

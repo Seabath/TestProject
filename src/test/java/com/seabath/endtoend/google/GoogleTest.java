@@ -17,7 +17,7 @@ public class GoogleTest extends AbstractT<GoogleTestDirector> {
         getDirector()
             .start()
             .clickLogo()
-            .execute();
+            .end();
     }
 
 }

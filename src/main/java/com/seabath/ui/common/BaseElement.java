@@ -1,5 +1,6 @@
 package com.seabath.ui.common;
 
+import io.qameta.allure.Step;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -22,14 +23,17 @@ public class BaseElement<T extends SearchContext, U extends RemoteWebDriver> imp
         this.by = by;
     }
 
+    @Step
     public void click() {
         getElement().click();
     }
 
+    @Step
     public BaseElement<T, U> waitVisible() {
         return waitVisible(DEFAULT_TIMEOUT);
     }
 
+    @Step
     public BaseElement<T, U> waitVisible(Duration timeout) {
         try {
             new WebDriverWait(driver, timeout)
@@ -43,15 +47,18 @@ public class BaseElement<T extends SearchContext, U extends RemoteWebDriver> imp
     }
 
     @Override
+    @Step
     public List<WebElement> findElements(By by) {
         return getElement().findElements(by);
     }
 
     @Override
+    @Step
     public WebElement findElement(By by) {
         return getElement().findElement(by);
     }
 
+    @Step
     protected WebElement getElement() {
         if (this.webElement != null) {
             return webElement;

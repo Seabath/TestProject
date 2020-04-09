@@ -4,6 +4,7 @@ import com.seabath.config.data.TestData;
 import com.seabath.config.properties.TestParam;
 import com.seabath.ui.common.BaseElement;
 import com.seabath.ui.common.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -21,7 +22,7 @@ public class GoogleMainPage extends BasePage<RemoteWebDriver> {
         );
     }
 
-
+    @Step("Click on main logo")
     public GoogleMainPage clickLogo() {
         middleLogo
             .waitVisible()

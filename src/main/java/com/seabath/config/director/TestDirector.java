@@ -3,6 +3,7 @@ package com.seabath.config.director;
 import com.seabath.config.data.TestData;
 import com.seabath.config.properties.TestParam;
 import com.seabath.ui.common.BasePage;
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -17,6 +18,7 @@ public abstract class TestDirector<T extends BasePage<U>, U extends RemoteWebDri
         this.testParam = testParam;
     }
 
+    @Step
     public T start() {
         final U webDriver = testParam.getDriverBuilder().buildDriver();
         testData = new TestData<>(webDriver);
@@ -27,6 +29,7 @@ public abstract class TestDirector<T extends BasePage<U>, U extends RemoteWebDri
 
     protected abstract T getFirstPage(TestData<U> testData);
 
+    @Step
     public void killDriver() {
         testParam.getDriverBuilder().killDriver(testData.getWebDriver());
     }

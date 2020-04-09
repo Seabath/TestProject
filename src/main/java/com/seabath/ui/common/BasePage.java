@@ -2,6 +2,7 @@ package com.seabath.ui.common;
 
 import com.seabath.config.data.TestData;
 import com.seabath.config.properties.TestParam;
+import io.qameta.allure.Step;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class BasePage<T extends RemoteWebDriver> {
@@ -14,7 +15,8 @@ public class BasePage<T extends RemoteWebDriver> {
         this.testParam = testParam;
     }
 
-    public void execute() {
+    @Step
+    public void end() {
         testParam.getDriverBuilder().killDriver(testData.getWebDriver());
     }
 }
