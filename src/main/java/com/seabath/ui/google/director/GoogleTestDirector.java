@@ -15,6 +15,7 @@ public class GoogleTestDirector extends TestDirector<GoogleMainPage, RemoteWebDr
     @Override
     protected GoogleMainPage getFirstPage(TestData<RemoteWebDriver> testData) {
         testData.getWebDriver().get(getTestParam().getAppUrl());
+        testData.getWebDriver().manage().window().maximize();
         return new GoogleMainPage(testData, getTestParam());
     }
 }
