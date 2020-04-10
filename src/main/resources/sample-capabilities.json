@@ -1,0 +1,18 @@
+{
+  "browserName": "chrome",
+  "version": "70.0",
+  "platform": "win10",
+  "build": "LambdaTestSampleApp",
+  "name": "LambdaTestJavaSample",
+  "network": true,
+  "visual": true,
+  "video": true,
+  "console": true,
+  "chromeOptions": {
+    "args": [
+      "start-maximized",
+      "headless",
+      "disable-gpu"
+    ]
+  }
+}

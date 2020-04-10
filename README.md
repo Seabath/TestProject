@@ -13,7 +13,7 @@ There is actually no unit tests since this project is used to execute end to end
 To launch tests, you simply execute the command line:\
 `mvn test -DparamFilePath={paramFilePath}`.\
 By default paramFilePath is set to: `src/main/resources/param.properties.
-A sample of property file can be found [there](src/main/resources/param.properties).
+A sample of property file can be found [there](src/main/resources/sample.properties).
 
 The maven plugin used to execute tests is [maven-surefire](http://maven.apache.org/surefire/maven-surefire-plugin/),
 just read the documentation to execute special runs.

@@ -25,8 +25,8 @@ public interface DriverBuilder<T extends RemoteWebDriver> {
         },
         REMOTE {
             @Override
-            public LabmdaTestRemoteDriverBuilder getBuilder(TestParam testParam) {
-                return new LabmdaTestRemoteDriverBuilder(testParam);
+            public RemoteDriverBuilder getBuilder(TestParam testParam) {
+                return new RemoteDriverBuilder(testParam);
             }
         };
 
