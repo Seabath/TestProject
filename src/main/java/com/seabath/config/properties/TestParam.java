@@ -16,12 +16,14 @@ public class TestParam<U extends RemoteWebDriver> {
     private static final String PATH_DRIVER_PROPERTY_KEY = "pathDriver";
     private static final String GRID_URL_PROPERTY_KEY = "gridUrl";
     private static final String PATH_TO_CAPABILITIES_PROPERTY_KEY = "pathToCapabilities";
+    private static final String TAKE_SCREENSHOT_PROPERTY_KEY = "takeScreenshot";
 
     private final DriverBuilder<U> driverBuilder;
     private final String appUrl;
     private final String pathDriver;
     private final String gridUrl;
     private final DesiredCapabilities desiredCapabilities;
+    private final boolean takeScreenshot;
 
     public TestParam(Properties properties) {
         final String driverBuilderProperty = properties.getProperty(DRIVER_BUILDER_PROPERTY_KEY);
@@ -46,5 +48,8 @@ public class TestParam<U extends RemoteWebDriver> {
         } catch (IOException e) {
             throw new IllegalStateException("Desired capabilities file not found at " + pathToCapabilities, e);
         }
+
+
+        takeScreenshot = Boolean.parseBoolean(properties.getProperty(TAKE_SCREENSHOT_PROPERTY_KEY));
     }
 }
