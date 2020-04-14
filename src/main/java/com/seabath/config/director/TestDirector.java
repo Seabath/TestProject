@@ -1,5 +1,6 @@
 package com.seabath.config.director;
 
+import com.seabath.config.attachment.ScreenShooter;
 import com.seabath.config.data.TestData;
 import com.seabath.config.properties.TestParam;
 import com.seabath.ui.common.BasePage;
@@ -30,7 +31,11 @@ public abstract class TestDirector<T extends BasePage<U>, U extends RemoteWebDri
     protected abstract T getFirstPage(TestData<U> testData);
 
     @Step
-    public void killDriver() {
-        testParam.getDriverBuilder().killDriver(testData.getWebDriver());
+    public void killDriverWithAttachments() {
+        final U webDriver = testData.getWebDriver();
+        if (testParam.isTakeScreenshot() && webDriver != null && webDriver.getSessionId() != null) {
+            new ScreenShooter(webDriver).shootScreen();
+        }
+        testParam.getDriverBuilder().killDriver(webDriver);
     }
 }

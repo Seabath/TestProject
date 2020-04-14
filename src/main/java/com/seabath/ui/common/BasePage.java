@@ -1,22 +1,19 @@
 package com.seabath.ui.common;
 
-import com.seabath.config.data.TestData;
-import com.seabath.config.properties.TestParam;
+import com.seabath.config.director.TestDirector;
 import io.qameta.allure.Step;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class BasePage<T extends RemoteWebDriver> {
 
-    private final TestData<T> testData;
-    private final TestParam<T> testParam;
+    private final TestDirector<?, ?> testDirector;
 
-    public BasePage(TestData<T> testData, TestParam<T> testParam) {
-        this.testData = testData;
-        this.testParam = testParam;
+    public BasePage(TestDirector<?, ?> testDirector) {
+        this.testDirector = testDirector;
     }
 
     @Step
     public void end() {
-        testParam.getDriverBuilder().killDriver(testData.getWebDriver());
+        testDirector.killDriverWithAttachments();
     }
 }
