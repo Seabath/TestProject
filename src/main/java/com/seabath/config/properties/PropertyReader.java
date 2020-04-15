@@ -11,7 +11,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class PropertyReader {
     public static final String PARAM_FILE_PATH = "paramFilePath";
     private static final String PATH_ALLURE_RESULT = System.getProperty("allure.results.directory");
-    public static final String PATH_TO_ALLURE_ENVIRONNEMENT_PROPERTIES =
+    public static final String PATH_TO_ALLURE_ENVIRONMENT_PROPERTIES =
         PATH_ALLURE_RESULT + "/environment.properties";
 
     private final String propertyFilePath;
@@ -26,7 +26,7 @@ public class PropertyReader {
         final File file = new File(propertyFilePath);
         try {
             properties.load(new FileInputStream(file));
-            FileUtils.copyFile(file, new File(PATH_TO_ALLURE_ENVIRONNEMENT_PROPERTIES));
+            FileUtils.copyFile(file, new File(PATH_TO_ALLURE_ENVIRONMENT_PROPERTIES));
         } catch (IOException e) {
             throw new IllegalStateException("Could not read file: " + file, e);
         }

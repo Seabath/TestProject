@@ -14,7 +14,7 @@ To launch tests, you simply execute the command line:\
 `mvn test -DparamFilePath={paramFilePath}`.\
 By default paramFilePath is set to: `src/main/resources/param.properties.
 A sample of property file can be found [there](src/main/resources/sample.properties).
-If you want to give extra capabilities to your driver (sayin you want to execute your tests remotely ?).\
+If you want to give extra capabilities to your driver (saying you want to execute your tests remotely ?).\
 You can find a sample of capabilities.json to fill [here](src/main/resources/sample-capabilities.json) 
 
 The maven plugin used to execute tests is [maven-surefire](http://maven.apache.org/surefire/maven-surefire-plugin/),
