@@ -24,34 +24,15 @@ public class CapabilitiesDeserializer implements JsonDeserializer<Map<String, Ob
     }
 
     private MapEntry<String, Object> formatType(String key, JsonElement value) {
-        Class<?> type;
-        switch (key) {
-            case ChromeOptions.CAPABILITY:
-            case "chromeOptions":
-                type = ChromeOptions.class;
-                break;
-            case EdgeOptions.CAPABILITY:
-            case "edgeOptions":
-                type = EdgeOptions.class;
-                break;
-            case FirefoxOptions.FIREFOX_OPTIONS:
-            case "firefoxOptions":
-                type = FirefoxOptions.class;
-                break;
-            case OperaOptions.CAPABILITY:
-                type = OperaOptions.class;
-                break;
-            case "se:ieOptions":
-                type = InternetExplorerOptions.class;
-                break;
-            case SafariOptions.CAPABILITY:
-                type = SafariOptions.class;
-                break;
-            default:
-                type = String.class;
-                break;
-        }
+        Class<?> type = switch (key) {
+            case ChromeOptions.CAPABILITY, "chromeOptions" -> ChromeOptions.class;
+            case EdgeOptions.CAPABILITY, "edgeOptions" -> EdgeOptions.class;
+            case FirefoxOptions.FIREFOX_OPTIONS, "firefoxOptions" -> FirefoxOptions.class;
+            case OperaOptions.CAPABILITY -> OperaOptions.class;
+            case "se:ieOptions" -> InternetExplorerOptions.class;
+            case SafariOptions.CAPABILITY -> SafariOptions.class;
+            default -> String.class;
+        };
         return MapEntry.entry(key, new Gson().fromJson(value, type));
-
     }
 }
