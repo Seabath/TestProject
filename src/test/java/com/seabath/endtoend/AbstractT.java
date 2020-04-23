@@ -31,7 +31,7 @@ public abstract class AbstractT<T extends TestDirector<?, ?>> {
 
     @AfterEach
     public void tearDownTest() {
-        director.killDriverWithAttachments();
+        director.killRemainingDriversWithAttachements();
     }
 
     protected abstract T initDirector();

@@ -13,7 +13,7 @@ public class GoogleMainPage extends BasePage<RemoteWebDriver> {
     private final BaseElement<?, ?> middleLogo;
 
     public GoogleMainPage(TestData<RemoteWebDriver> testData, GoogleTestDirector testDirector) {
-        super(testDirector);
+        super(testDirector, testData);
 
         middleLogo = new BaseElement<>(
             testData.getWebDriver(),
