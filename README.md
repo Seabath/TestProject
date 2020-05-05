@@ -1,6 +1,6 @@
 # Prerequisites
 
-To execute tests, you need to have java 8 installed + maven.
+To execute tests, you need to have java 14 installed + maven.
 To generate an allure report, you need to have allure installed, for this, just follow
 [this documentation](https://docs.qameta.io/allure/).
 

@@ -7,6 +7,7 @@ import java.util.List;
 import static org.assertj.core.api.Fail.fail;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BaseElement<T extends SearchContext, U extends RemoteWebDriver> implements SearchContext {
@@ -29,8 +30,24 @@ public class BaseElement<T extends SearchContext, U extends RemoteWebDriver> imp
     }
 
     @Step
+    public BaseElement<T, U> sendKeys(String number) {
+        getElement().sendKeys(number);
+        return this;
+    }
+
+    public long getDisplayedNumber() {
+        return searchContext.findElements(by).stream()
+                .filter(WebElement::isDisplayed)
+                .count();
+    }
+
+    @Step
     public BaseElement<T, U> waitVisible() {
         return waitVisible(DEFAULT_TIMEOUT);
+    }
+
+    public BaseElement<T, U> waitInvisible() {
+        return waitInvisible(DEFAULT_TIMEOUT);
     }
 
     @Step
@@ -41,6 +58,18 @@ public class BaseElement<T extends SearchContext, U extends RemoteWebDriver> imp
         } catch (TimeoutException e) {
             //noinspection ResultOfMethodCallIgnored
             fail(String.format("Element with selector: <%s> not found.", by.toString()), e);
+        }
+
+        return this;
+    }
+    @Step
+    public BaseElement<T, U> waitInvisible(Duration timeout) {
+        try {
+            new WebDriverWait(driver, timeout)
+                .until(ExpectedConditions.invisibilityOfElementLocated(by));
+        } catch (TimeoutException e) {
+            //noinspection ResultOfMethodCallIgnored
+            fail(String.format("Element with selector: <%s> still visible.", by.toString()), e);
         }
 
         return this;
