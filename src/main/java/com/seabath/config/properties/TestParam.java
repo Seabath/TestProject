@@ -1,11 +1,12 @@
 package com.seabath.config.properties;
 
 import com.seabath.config.driver.builder.DriverBuilder;
-import java.io.IOException;
-import java.util.Properties;
 import lombok.Getter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.io.IOException;
+import java.util.Properties;
 
 @Getter
 public class TestParam<U extends RemoteWebDriver> {
@@ -22,15 +23,16 @@ public class TestParam<U extends RemoteWebDriver> {
     private final String appUrl;
     private final String pathDriver;
     private final String gridUrl;
-    private final DesiredCapabilities desiredCapabilities;
+    private DesiredCapabilities desiredCapabilities;
     private final boolean takeScreenshot;
 
     public TestParam(Properties properties) {
         final String driverBuilderProperty = properties.getProperty(DRIVER_BUILDER_PROPERTY_KEY);
+        final DriverBuilder.DriverBuilders driverBuilder;
         try {
-            final DriverBuilder.DriverBuilders builder =
+            driverBuilder =
                 DriverBuilder.DriverBuilders.valueOf(driverBuilderProperty);
-            this.driverBuilder = builder.getBuilder(this);
+            this.driverBuilder = driverBuilder.getBuilder(this);
         } catch (IllegalArgumentException e) {
             final String message = String.format("Couldn't find driver builder type: <%s>.",
                 driverBuilderProperty);
@@ -40,13 +42,15 @@ public class TestParam<U extends RemoteWebDriver> {
         this.pathDriver = properties.getProperty(PATH_DRIVER_PROPERTY_KEY);
         this.gridUrl = properties.getProperty(GRID_URL_PROPERTY_KEY);
 
-        final String pathToCapabilities = properties.getProperty(PATH_TO_CAPABILITIES_PROPERTY_KEY);
-        try {
-            desiredCapabilities = new DesiredCapabilitiesBuilder(pathToCapabilities)
-                .loadFile()
-                .build();
-        } catch (IOException e) {
-            throw new IllegalStateException("Desired capabilities file not found at " + pathToCapabilities, e);
+        if (driverBuilder == DriverBuilder.DriverBuilders.REMOTE) {
+            final String pathToCapabilities = properties.getProperty(PATH_TO_CAPABILITIES_PROPERTY_KEY);
+            try {
+                desiredCapabilities = new DesiredCapabilitiesBuilder(pathToCapabilities)
+                        .loadFile()
+                        .build();
+            } catch (IOException e) {
+                throw new IllegalStateException("Desired capabilities file not found at " + pathToCapabilities, e);
+            }
         }
 
 

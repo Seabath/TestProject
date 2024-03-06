@@ -10,7 +10,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-public class TableSearchFilterDemoPage extends BasePage<RemoteWebDriver> {
+public class TableSearchFilterDemoPage extends BasePage<RemoteWebDriver, TableSearchFilterDemoPage> {
 
     private final BaseElement<?, ?> buttonFilter;
     private final BaseElement<?, ?> filterTable;
@@ -69,36 +69,30 @@ public class TableSearchFilterDemoPage extends BasePage<RemoteWebDriver> {
     @Step("Click on filter button")
     public TableSearchFilterDemoPage clickFilter() {
         buttonFilter
-            .waitVisible()
             .click();
         return this;
     }
 
     public TableSearchFilterDemoPage filterId(String number) {
-        filterId.waitVisible()
-                .sendKeys(number);
+        filterId.sendKeys(number);
         return this;
     }
 
     public TableSearchFilterDemoPage filterUserName(String userName) {
-        filterUserName.waitVisible()
-                .sendKeys(userName);
+        filterUserName.sendKeys(userName);
         return this;
     }
     public TableSearchFilterDemoPage filterFirstName(String firstName) {
-        filterFirstName.waitVisible()
-                .sendKeys(firstName);
+        filterFirstName.sendKeys(firstName);
         return this;
     }
     public TableSearchFilterDemoPage filterLastName(String lastName) {
-        filterLastName.waitVisible()
-                .sendKeys(lastName);
+        filterLastName.sendKeys(lastName);
         return this;
     }
 
     public TableSearchFilterDemoPage retrieveFilterTableSize(AtomicReference<Long> listSize) {
-        long number = filteredRow.waitVisible()
-                .getDisplayedNumber();
+        long number = filteredRow.getDisplayedNumber();
         listSize.set(number);
         return this;
     }

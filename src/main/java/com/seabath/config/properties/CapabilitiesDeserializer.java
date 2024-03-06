@@ -1,16 +1,15 @@
 package com.seabath.config.properties;
 
 import com.google.gson.*;
-import java.lang.reflect.Type;
-import java.util.Map;
-import java.util.stream.Collectors;
 import org.assertj.core.data.MapEntry;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.opera.OperaOptions;
-import org.openqa.selenium.safari.SafariOptions;
+
+import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CapabilitiesDeserializer implements JsonDeserializer<Map<String, Object>> {
     @Override
@@ -28,9 +27,7 @@ public class CapabilitiesDeserializer implements JsonDeserializer<Map<String, Ob
             case ChromeOptions.CAPABILITY, "chromeOptions" -> ChromeOptions.class;
             case EdgeOptions.CAPABILITY, "edgeOptions" -> EdgeOptions.class;
             case FirefoxOptions.FIREFOX_OPTIONS, "firefoxOptions" -> FirefoxOptions.class;
-            case OperaOptions.CAPABILITY -> OperaOptions.class;
             case "se:ieOptions" -> InternetExplorerOptions.class;
-            case SafariOptions.CAPABILITY -> SafariOptions.class;
             default -> String.class;
         };
         return MapEntry.entry(key, new Gson().fromJson(value, type));

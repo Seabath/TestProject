@@ -8,7 +8,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-public class GoogleMainPage extends BasePage<RemoteWebDriver> {
+public class GoogleMainPage extends BasePage<RemoteWebDriver, GoogleMainPage> {
 
     private final BaseElement<?, ?> middleLogo;
 
@@ -24,9 +24,7 @@ public class GoogleMainPage extends BasePage<RemoteWebDriver> {
 
     @Step("Click on main logo")
     public GoogleMainPage clickLogo() {
-        middleLogo
-            .waitVisible()
-            .click();
+        middleLogo.click();
         return this;
     }
 }

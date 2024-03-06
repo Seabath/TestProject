@@ -1,8 +1,10 @@
 package com.seabath.config.attachment;
 
-import io.qameta.allure.Attachment;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+
+import java.io.ByteArrayInputStream;
 
 public class ScreenShooter {
 
@@ -13,8 +15,12 @@ public class ScreenShooter {
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    @Attachment(value = "Screenshot", type = "image/png")
-    public byte[] shootScreen() {
-        return takesScreenshot.getScreenshotAs(OutputType.BYTES);
+    public void shootScreen() {
+        byte[] screenshot = takesScreenshot.getScreenshotAs(OutputType.BYTES);
+        Allure.addAttachment("Screenshot",
+                "image/png",
+                new ByteArrayInputStream(screenshot),
+                ".png"
+        );
     }
 }
