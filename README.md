@@ -1,11 +1,11 @@
 # Prerequisites
 
-To execute tests, you need to have java 14 installed + maven.
+To execute tests, you need to have java 17 installed + maven.
 To generate an allure report, you need to have allure installed, for this, just follow
 [this documentation](https://docs.qameta.io/allure/).
 
 # Stack Used
-As you can guess, all of it is written in java 8, with maven as build automation tool.\
+As you can guess, all of it is written in java 17, with maven as build automation tool.\
 Tests are run with junit 5.\
 There is actually no unit tests since this project is used to execute end to end / integration tests.
 

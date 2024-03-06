@@ -10,7 +10,7 @@ import java.util.List;
 import lombok.Getter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-public abstract class TestDirector<T extends BasePage<U>, U extends RemoteWebDriver> {
+public abstract class TestDirector<T extends BasePage<U, ?>, U extends RemoteWebDriver> {
 
     @Getter
     private final TestParam<U> testParam;
@@ -45,7 +45,7 @@ public abstract class TestDirector<T extends BasePage<U>, U extends RemoteWebDri
     }
 
     @Step
-    public void killRemainingDriversWithAttachements() {
+    public void killRemainingDriversWithAttachments() {
         testDatas.forEach(this::killDriverWithAttachments);
     }
 }
