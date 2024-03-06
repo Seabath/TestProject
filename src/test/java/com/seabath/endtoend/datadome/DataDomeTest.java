@@ -13,7 +13,7 @@ public class DataDomeTest extends AbstractTDataDome {
     @Test
     @DisplayName("Check Keys Table")
     @Description("Check the presence of each column of the keys table, and click the first documentation link.")
-    public void checkKeysTable() {
+    public void checkClientSideKeysTable() {
         String login = "premium-staff@datadome.co";
         String password = "dd-ext-138ae%!";
 
@@ -29,26 +29,26 @@ public class DataDomeTest extends AbstractTDataDome {
                 .fillLogin(login)
                 .fillPassword(password)
                 .loginSuccessfully()
-                //.retrieveKeyGuid(0, guidRef)
+                .retrieveKeyGuid(0, guidRef)
                 .retrieveName(0, nameRef)
-                //.retrieveType(0, typeRef)
+                .retrieveType(0, typeRef)
                 .retrieveStatus(0, statusRef)
-                //.retrieveLastActivity(0, lastActivityRef)
-                //.retrieveCreationDate(0, creationDateRef)
-                .clickKeyDocumentation(0)
+                .retrieveLastActivity(0, lastActivityRef)
+                .retrieveCreationDate(0, creationDateRef)
+                .clickClientSideKeyDocumentation()
                 .retrieveCurrentUrl(urlRef)
                 .closeTab()
                 .end();
 
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(guidRef.get()).isEqualTo("expected GUID that should not be empty but is because column doesn't exist");
-        softly.assertThat(nameRef.get()).isEqualTo("Client-Side Key");
-        softly.assertThat(typeRef.get()).isEqualTo("expected type that should not be empty but is because column doesn't exist");
-        softly.assertThat(statusRef.get()).isEqualTo("Traffic received");
-        softly.assertThat(lastActivityRef.get()).isEqualTo("expected last activity that should not be empty but is because column doesn't exist");
-        softly.assertThat(creationDateRef.get()).isEqualTo("expected creation date that should not be empty but is because column doesn't exist");
-        softly.assertThat(urlRef.get()).isEqualTo("expected");
+        softly.assertThat(guidRef.get()).isEqualTo("3b886ce5-e00e-45ab-92a2-0f37fc68ab83");
+        softly.assertThat(nameRef.get()).isEqualTo("Client-Side key");
+        softly.assertThat(typeRef.get()).isEqualTo("Client Side Key");
+        softly.assertThat(statusRef.get()).isEqualTo("done\nTraffic received");
+        softly.assertThat(lastActivityRef.get()).isEqualTo("Mar 5, 2024, 12:40:38 PM");
+        softly.assertThat(creationDateRef.get()).isEqualTo("Apr 27, 2017, 11:53:33 AM");
+        softly.assertThat(urlRef.get()).isEqualTo("https://docs.datadome.co/docs/javascript-tag");
         softly.assertAll();
     }
 

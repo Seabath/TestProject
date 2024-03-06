@@ -12,17 +12,20 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Fail.fail;
 
 public class IntegrationsPage extends BasePage<RemoteWebDriver, IntegrationsPage> {
 
-    private final BaseElement<RemoteWebDriver, RemoteWebDriver> keyTable;
-
     private static final Duration DEFAULT_TIMEOUT = Duration.of(2, ChronoUnit.MINUTES);
     private static final Duration DEFAULT_DELAY = Duration.of(500, ChronoUnit.MILLIS);
     private static final Integer DEFAULT_MAX_RETRIES = 40;
+
+    private final BaseElement<?, ?> keyTable;
+    private final BaseElement<?, ?> documentationDropDown;
+    private final BaseElement<?, ?> clientSideKeyDocumentation;
 
 
     public IntegrationsPage(TestDirector<?, RemoteWebDriver> testDirector, TestData<RemoteWebDriver> testData) {
@@ -31,7 +34,17 @@ public class IntegrationsPage extends BasePage<RemoteWebDriver, IntegrationsPage
         keyTable = new BaseElement<>(
                 testData.getWebDriver(),
                 testData.getWebDriver(),
-                By.cssSelector("[cardtitle=Keys]")
+                By.xpath("/html/body/dd-root/dd-com-dashboard-lay/div/mat-drawer-container/mat-drawer-content/mat-drawer-container/mat-drawer-content/main/dd-management-lab/dd-integrations/div/dd-integration-keys-revamp/dds-card/div[2]/dds-table")
+        );
+        documentationDropDown = new BaseElement<>(
+                testData.getWebDriver(),
+                testData.getWebDriver(),
+                By.xpath("//*/button/*[contains(text(), 'Documentation')]/..")
+        );
+        clientSideKeyDocumentation = new BaseElement<>(
+                testData.getWebDriver(),
+                testData.getWebDriver(),
+                By.xpath("//*[@id=\"cdk-overlay-0\"]/div[2]/button[1]")
         );
     }
 
@@ -40,7 +53,7 @@ public class IntegrationsPage extends BasePage<RemoteWebDriver, IntegrationsPage
         BaseElement<?, ?> guidColumn = new BaseElement<>(
                 testData.getWebDriver(),
                 keyTable,
-                By.cssSelector(String.format("mat-row:nth-of-type(%d) mat-cell:nth-of-type(2)", tableIndex + 1))
+                By.cssSelector(String.format("tbody tr:nth-of-type(%d) td:nth-of-type(1)", tableIndex + 1))
         );
         guidRef.set(guidColumn.getText());
         return this;
@@ -52,7 +65,7 @@ public class IntegrationsPage extends BasePage<RemoteWebDriver, IntegrationsPage
         BaseElement<?, ?> nameColumn = new BaseElement<>(
                 testData.getWebDriver(),
                 keyTable,
-                By.cssSelector(String.format("mat-row:nth-of-type(%d) mat-cell:nth-of-type(1)", tableIndex + 1))
+                By.cssSelector(String.format("tbody tr:nth-of-type(%d) td:nth-of-type(3)", tableIndex + 1))
         );
         nameRef.set(nameColumn.getText());
         return this;
@@ -63,7 +76,7 @@ public class IntegrationsPage extends BasePage<RemoteWebDriver, IntegrationsPage
         BaseElement<?, ?> typeColumn = new BaseElement<>(
                 testData.getWebDriver(),
                 keyTable,
-                By.cssSelector(String.format("mat-row:nth-of-type(%d) mat-cell:nth-of-type(1)", tableIndex + 1))
+                By.cssSelector(String.format("tbody tr:nth-of-type(%d) td:nth-of-type(2)", tableIndex + 1))
         );
         typeRef.set(typeColumn.getText());
         return this;
@@ -74,7 +87,7 @@ public class IntegrationsPage extends BasePage<RemoteWebDriver, IntegrationsPage
         BaseElement<?, ?> statusColumn = new BaseElement<>(
                 testData.getWebDriver(),
                 keyTable,
-                By.cssSelector(String.format("mat-row:nth-of-type(%d) mat-cell:nth-of-type(3)", tableIndex + 1))
+                By.cssSelector(String.format("tbody tr:nth-of-type(%d) td:nth-of-type(5)", tableIndex + 1))
         );
         statusRef.set(statusColumn.getText());
         return this;
@@ -85,7 +98,7 @@ public class IntegrationsPage extends BasePage<RemoteWebDriver, IntegrationsPage
         BaseElement<?, ?> lastActivityColumn = new BaseElement<>(
                 testData.getWebDriver(),
                 keyTable,
-                By.cssSelector(String.format("mat-row:nth-of-type(%d) mat-cell:nth-of-type(2)", tableIndex + 1))
+                By.cssSelector(String.format("tbody tr:nth-of-type(%d) td:nth-of-type(6)", tableIndex + 1))
         );
         lastActivityRef.set(lastActivityColumn.getText());
         return this;
@@ -96,34 +109,34 @@ public class IntegrationsPage extends BasePage<RemoteWebDriver, IntegrationsPage
         BaseElement<?, ?> creationDateColumn = new BaseElement<>(
                 testData.getWebDriver(),
                 keyTable,
-                By.cssSelector(String.format("mat-row:nth-of-type(%d) mat-cell:nth-of-type(2)", tableIndex + 1))
+                By.cssSelector(String.format("tbody tr:nth-of-type(%d) td:nth-of-type(7)", tableIndex + 1))
         );
         creationDateRef.set(creationDateColumn.getText());
         return this;
     }
 
     @Step("Click key documentation at index {0}")
-    public KeyHelpPage<IntegrationsPage> clickKeyDocumentation(int tableIndex) {
-        BaseElement<?, ?> infoButton = new BaseElement<>(
-                testData.getWebDriver(),
-                keyTable,
-                By.cssSelector(String.format("mat-row:nth-of-type(%d) mat-cell:nth-of-type(1) dd-icon", tableIndex + 1))
-        );
-
+    public KeyHelpPage<IntegrationsPage> clickClientSideKeyDocumentation() {
         RemoteWebDriver webDriver = testData.getWebDriver();
         String currentTab = webDriver.getWindowHandle();
-        infoButton.click();
+        documentationDropDown.click();
 
+        clientSideKeyDocumentation.click();
 
-        Failsafe.with(RetryPolicy.builder()
+        String newTabHandle = Failsafe.with(RetryPolicy.builder()
                         .withDelay(DEFAULT_DELAY)
                         .withMaxDuration(DEFAULT_TIMEOUT)
                         .withMaxRetries(DEFAULT_MAX_RETRIES)
-                        .handleResult(1)
+                        .handleResult(null)
                         .build())
                 .onFailure(event -> fail("No other tab was open", event.getException()))
-                .get(() -> webDriver.getWindowHandles().size());
+                .get(() -> webDriver.getWindowHandles().stream()
+                        .filter(s -> !Objects.equals(s, currentTab))
+                        .findAny()
+                        .orElse(null));
 
+        testData.getWebDriver().switchTo()
+                .window(newTabHandle);
         return new KeyHelpPage<>(getTestDirector(), getTestData(), this, currentTab);
     }
 }
